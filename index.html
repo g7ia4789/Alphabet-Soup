@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Soup - Letter Matching Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .game-area {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .side-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .letter-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        .letter-btn {
+            padding: 15px;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #333;
+        }
+
+        .letter-btn:hover {
+            transform: scale(1.05);
+            border-color: #667eea;
+            background: #f9f9f9;
+        }
+
+        .letter-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .letter-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+            animation: pulse 0.5s;
+        }
+
+        .letter-btn.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+            animation: shake 0.3s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .target-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            background: #fff9e6;
+            border: 3px dashed #ffa500;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .target-letter {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ffa500;
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button.action-btn {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        button.next-btn {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        button.next-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        button.next-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.reset-btn {
+            background: #f44336;
+            color: white;
+            padding: 12px 20px;
+        }
+
+        button.reset-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.2em;
+            height: 30px;
+        }
+
+        .message.success {
+            color: #4caf50;
+        }
+
+        .message.error {
+            color: #f44336;
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #1565c0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Alphabet Soup</h1>
+        <p class="subtitle">Match the letters!</p>
+
+        <div class="instructions">
+            <strong>How to play:</strong> Click on the letter in the right column that matches the target letter shown above.
+        </div>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Correct</div>
+                <div class="score-value" id="correct">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Wrong</div>
+                <div class="score-value" id="wrong">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Round</div>
+                <div class="score-value" id="round">1/10</div>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="side">
+                <div class="side-label">TARGET</div>
+                <div class="target-area">
+                    <div class="target-letter" id="targetLetter">A</div>
+                </div>
+            </div>
+
+            <div class="side">
+                <div class="side-label">CHOOSE ONE</div>
+                <div class="letter-buttons" id="letterButtons"></div>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="buttons-row">
+            <button class="action-btn next-btn" id="nextBtn" disabled>Next</button>
+            <button class="action-btn reset-btn" id="resetBtn">Reset Game</button>
+        </div>
+    </div>
+
+    <script>
+        const TOTAL_ROUNDS = 10;
+        let state = {
+            correctCount: 0,
+            wrongCount: 0,
+            currentRound: 1,
+            targetLetter: '',
+            selectedLetter: null,
+            answered: false,
+            gameOver: false
+        };
+
+        const elements = {
+            targetLetter: document.getElementById('targetLetter'),
+            letterButtons: document.getElementById('letterButtons'),
+            correct: document.getElementById('correct'),
+            wrong: document.getElementById('wrong'),
+            round: document.getElementById('round'),
+            message: document.getElementById('message'),
+            nextBtn: document.getElementById('nextBtn'),
+            resetBtn: document.getElementById('resetBtn')
+        };
+
+        function getRandomLetter() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            return letters[Math.floor(Math.random() * letters.length)];
+        }
+
+        function getShuffledLetters(target) {
+            const letters = new Set([target]);
+            while (letters.size < 9) {
+                letters.add(getRandomLetter());
+            }
+            return Array.from(letters).sort(() => Math.random() - 0.5);
+        }
+
+        function initializeGame() {
+            state.targetLetter = getRandomLetter();
+            elements.targetLetter.textContent = state.targetLetter;
+            
+            const shuffled = getShuffledLetters(state.targetLetter);
+            
+            elements.letterButtons.innerHTML = shuffled.map(letter => 
+                `<button class="letter-btn" data-letter="${letter}">${letter}</button>`
+            ).join('');
+
+            state.selectedLetter = null;
+            state.answered = false;
+            elements.message.textContent = '';
+            elements.message.className = 'message';
+            elements.nextBtn.disabled = true;
+
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.addEventListener('click', handleLetterClick);
+            });
+        }
+
+        function handleLetterClick(e) {
+            if (state.answered) return;
+
+            const letter = e.target.dataset.letter;
+            state.selectedLetter = letter;
+
+            // Remove previous selection
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'wrong');
+            });
+
+            if (letter === state.targetLetter) {
+                e.target.classList.add('correct');
+                state.correctCount++;
+                elements.correct.textContent = state.correctCount;
+                elements.message.textContent = '✅ Correct!';
+                elements.message.className = 'message success';
+            } else {
+                e.target.classList.add('wrong');
+                state.wrongCount++;
+                elements.wrong.textContent = state.wrongCount;
+                elements.message.textContent = '❌ Wrong! Try again.';
+                elements.message.className = 'message error';
+            }
+
+            state.answered = true;
+            elements.nextBtn.disabled = false;
+        }
+
+        function nextRound() {
+            if (state.currentRound < TOTAL_ROUNDS) {
+                state.currentRound++;
+                elements.round.textContent = `${state.currentRound}/${TOTAL_ROUNDS}`;
+                initializeGame();
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            state.gameOver = true;
+            const accuracy = Math.round((state.correctCount / TOTAL_ROUNDS) * 100);
+            elements.message.textContent = `Game Over! Accuracy: ${accuracy}%`;
+            elements.message.className = 'message success';
+            elements.nextBtn.disabled = true;
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.disabled = true;
+            });
+        }
+
+        function resetGame() {
+            state = {
+                correctCount: 0,
+                wrongCount: 0,
+                currentRound: 1,
+                targetLetter: '',
+                selectedLetter: null,
+                answered: false,
+                gameOver: false
+            };
+            elements.correct.textContent = '0';
+            elements.wrong.textContent = '0';
+            elements.round.textContent = '1/10';
+            initializeGame();
+        }
+
+        elements.nextBtn.addEventListener('click', nextRound);
+        elements.resetBtn.addEventListener('click', resetGame);
+
+        // Start the game
+        initializeGame();
+    </script>
+</body>
+</html>
