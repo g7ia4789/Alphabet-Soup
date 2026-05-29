@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,34 +23,36 @@
 
         .container {
             background: white;
-            border-radius: 20px;
+            border-radius: 40px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
             width: 100%;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #FF69B4;
             margin-bottom: 10px;
-            font-size: 2.5em;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
         }
 
         .subtitle {
             text-align: center;
-            color: #666;
+            color: #FFB6C1;
             margin-bottom: 30px;
-            font-size: 0.9em;
+            font-size: 1.2em;
         }
 
         .score-board {
             display: flex;
             justify-content: space-around;
             margin-bottom: 30px;
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+            padding: 20px;
+            border-radius: 20px;
+            border: 3px solid #FF69B4;
         }
 
         .score-item {
@@ -58,135 +60,184 @@
         }
 
         .score-label {
-            color: #666;
-            font-size: 0.85em;
-            margin-bottom: 5px;
+            color: #FF69B4;
+            font-size: 1em;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
 
         .score-value {
-            font-size: 1.8em;
+            font-size: 2.2em;
             font-weight: bold;
-            color: #667eea;
+            color: #FF1493;
         }
 
         .game-area {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 30px;
+            align-items: flex-start;
         }
 
-        .side {
+        .left-side {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+            background: linear-gradient(135deg, #FFFACD 0%, #FFEAA7 100%);
+            border-radius: 30px;
+            border: 5px solid #FFD700;
+            padding: 20px;
+        }
+
+        .target-letter {
+            font-size: 8em;
+            font-weight: bold;
+            color: #FF69B4;
+            text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.3);
+            line-height: 1;
+        }
+
+        .right-side {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .side-label {
-            font-size: 0.85em;
-            color: #666;
-            margin-bottom: 10px;
-            font-weight: bold;
+        .soup-container {
+            width: 100%;
+            height: 350px;
+            background: radial-gradient(ellipse at center, #FFE4B5 0%, #FFDAB9 50%, #FFCC99 100%);
+            border-radius: 20px;
+            border: 6px solid #D2691E;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .letter-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 100%;
+        .soup-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle 2px at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle 3px at 60% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle 2px at 40% 50%, rgba(255, 255, 255, 0.25) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .letter-btn {
-            padding: 15px;
-            font-size: 1.8em;
+            width: 50px;
+            height: 50px;
+            font-size: 2em;
             font-weight: bold;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            background: white;
+            border: 3px solid #8B4513;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
             cursor: pointer;
             transition: all 0.2s;
-            color: #333;
+            color: #8B4513;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .letter-btn:hover {
-            transform: scale(1.05);
-            border-color: #667eea;
-            background: #f9f9f9;
+            transform: scale(1.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .letter-btn.selected {
-            background: #667eea;
+            background: linear-gradient(135deg, #87CEEB 0%, #4A90E2 100%);
             color: white;
-            border-color: #667eea;
+            border-color: #4A90E2;
         }
 
         .letter-btn.correct {
-            background: #4caf50;
+            background: linear-gradient(135deg, #90EE90 0%, #32CD32 100%);
             color: white;
-            border-color: #4caf50;
-            animation: pulse 0.5s;
+            border-color: #228B22;
+            animation: bounce 0.6s;
         }
 
         .letter-btn.wrong {
-            background: #f44336;
+            background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
             color: white;
-            border-color: #f44336;
+            border-color: #FF1493;
             animation: shake 0.3s;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.2) translateY(-15px); }
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
 
-        .target-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80px;
-            background: #fff9e6;
-            border: 3px dashed #ffa500;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .target-letter {
-            font-size: 3em;
+        .message {
+            text-align: center;
             font-weight: bold;
-            color: #ffa500;
+            margin-top: 15px;
+            font-size: 1.4em;
+            height: 35px;
+        }
+
+        .message.success {
+            color: #32CD32;
+            text-shadow: 1px 1px 2px rgba(50, 205, 50, 0.3);
+        }
+
+        .message.error {
+            color: #FF69B4;
+            text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
         }
 
         .buttons-row {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
         }
 
         button.action-btn {
-            padding: 12px 30px;
-            font-size: 1em;
+            padding: 15px 40px;
+            font-size: 1.2em;
             border: none;
-            border-radius: 8px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.2s;
+            font-family: 'Comic Sans MS', cursive;
         }
 
         button.next-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #87CEEB 0%, #4A90E2 100%);
             color: white;
             flex: 1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 3px solid #1E90FF;
         }
 
         button.next-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         button.next-btn:disabled {
@@ -196,86 +247,88 @@
         }
 
         button.reset-btn {
-            background: #f44336;
+            background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
             color: white;
-            padding: 12px 20px;
+            padding: 15px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 3px solid #FF1493;
         }
 
         button.reset-btn:hover {
-            background: #da190b;
-            transform: translateY(-2px);
-        }
-
-        .message {
-            text-align: center;
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 1.2em;
-            height: 30px;
-        }
-
-        .message.success {
-            color: #4caf50;
-        }
-
-        .message.error {
-            color: #f44336;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .instructions {
-            background: #e3f2fd;
+            background: linear-gradient(135deg, #E0FFFF 0%, #AFEEEE 100%);
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            color: #1565c0;
-            font-size: 0.9em;
-            line-height: 1.5;
+            color: #008B8B;
+            font-size: 1em;
+            line-height: 1.6;
+            border: 3px solid #20B2AA;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .game-area {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .target-letter {
+                font-size: 5em;
+            }
+
+            .left-side, .soup-container {
+                min-height: 250px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Alphabet Soup</h1>
-        <p class="subtitle">Match the letters!</p>
+        <h1>🍲 Alphabet Soup</h1>
+        <p class="subtitle">Find the matching letter!</p>
 
         <div class="instructions">
-            <strong>How to play:</strong> Click on the letter in the right column that matches the target letter shown above.
+            🎈 Look at the BIG letter on the left, then click the SAME letter floating in the soup! 🎈
         </div>
 
         <div class="score-board">
             <div class="score-item">
-                <div class="score-label">Correct</div>
+                <div class="score-label">✅ Correct</div>
                 <div class="score-value" id="correct">0</div>
             </div>
             <div class="score-item">
-                <div class="score-label">Wrong</div>
+                <div class="score-label">❌ Wrong</div>
                 <div class="score-value" id="wrong">0</div>
             </div>
             <div class="score-item">
-                <div class="score-label">Round</div>
+                <div class="score-label">🎮 Round</div>
                 <div class="score-value" id="round">1/10</div>
             </div>
         </div>
 
         <div class="game-area">
-            <div class="side">
-                <div class="side-label">TARGET</div>
-                <div class="target-area">
-                    <div class="target-letter" id="targetLetter">A</div>
-                </div>
+            <div class="left-side">
+                <div class="target-letter" id="targetLetter">A</div>
             </div>
 
-            <div class="side">
-                <div class="side-label">CHOOSE ONE</div>
-                <div class="letter-buttons" id="letterButtons"></div>
+            <div class="right-side">
+                <div class="soup-container" id="letterButtons"></div>
+                <div class="message" id="message"></div>
             </div>
         </div>
 
-        <div class="message" id="message"></div>
-
         <div class="buttons-row">
-            <button class="action-btn next-btn" id="nextBtn" disabled>Next</button>
-            <button class="action-btn reset-btn" id="resetBtn">Reset Game</button>
+            <button class="action-btn next-btn" id="nextBtn" disabled>⏭️ Next</button>
+            <button class="action-btn reset-btn" id="resetBtn">🔄 Play Again</button>
         </div>
     </div>
 
@@ -351,13 +404,13 @@
                 e.target.classList.add('correct');
                 state.correctCount++;
                 elements.correct.textContent = state.correctCount;
-                elements.message.textContent = '✅ Correct!';
+                elements.message.textContent = '🎉 Correct! Great job!';
                 elements.message.className = 'message success';
             } else {
                 e.target.classList.add('wrong');
                 state.wrongCount++;
                 elements.wrong.textContent = state.wrongCount;
-                elements.message.textContent = '❌ Wrong! Try again.';
+                elements.message.textContent = '🤔 Oops! Try again!';
                 elements.message.className = 'message error';
             }
 
@@ -378,7 +431,7 @@
         function endGame() {
             state.gameOver = true;
             const accuracy = Math.round((state.correctCount / TOTAL_ROUNDS) * 100);
-            elements.message.textContent = `Game Over! Accuracy: ${accuracy}%`;
+            elements.message.textContent = `🏆 Game Over! You got ${state.correctCount} correct!`;
             elements.message.className = 'message success';
             elements.nextBtn.disabled = true;
             document.querySelectorAll('.letter-btn').forEach(btn => {
